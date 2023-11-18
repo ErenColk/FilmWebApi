@@ -1,3 +1,4 @@
+using FilmWebApi.BLL.AutoMapper;
 using FilmWebApi.BLL.Services.Abstract;
 using FilmWebApi.BLL.Services.Concrete;
 using FilmWebApi.Core.IRepositories;
@@ -24,8 +25,11 @@ namespace FilmWebApi.UI
 			builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conStr")));
 
 
+            builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+
+
             //AUTOMAPPER
-            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            builder.Services.AddAutoMapper(typeof(ActorMapping));
 
             //DEPENDENCY INJECTION
             builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));

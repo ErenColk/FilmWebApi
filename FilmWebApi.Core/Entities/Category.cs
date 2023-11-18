@@ -8,6 +8,11 @@ namespace FilmWebApi.Core.Entities
 {
 	public class Category : BaseEntity
 	{
-		public List<Film>? Films { get; set; }
+        public Category()
+        {
+            Films = new List<Film>();
+        }
+
+        public List<Film>? Films { get; set; }
 	}
 }

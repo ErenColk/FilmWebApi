@@ -9,11 +9,10 @@ namespace FilmWebApi.BLL.DTO.ActorDTO
 {
     public class CreateActorDTO
     {
-        public string FirstName { get; set; }
+        public string Name { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public int FilmId { get; set; }
-        public List<Film> Films { get; set; }
 
     }
 }
