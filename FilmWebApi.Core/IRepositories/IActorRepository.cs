@@ -9,6 +9,8 @@ namespace FilmWebApi.Core.IRepositories
 {
 	public interface IActorRepository : IBaseRepository<Actor>
 	{
+        List<Actor> GetActorInclude();
 
-	}
+
+    }
 }

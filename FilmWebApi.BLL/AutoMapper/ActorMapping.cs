@@ -13,11 +13,10 @@ namespace FilmWebApi.BLL.AutoMapper
     {
         public ActorMapping()
         {
-            CreateMap<Actor,ResultActorDTO>().ReverseMap();
-            CreateMap<Actor,ResultActorWithFilmDTO>().ReverseMap();
-            CreateMap<Actor,CreateActorDTO>().ReverseMap();
-            CreateMap<Actor,UpdateActorDTO>().ReverseMap();
-            CreateMap<Actor,DeleteActorDTO>().ReverseMap();
+            CreateMap<ResultActorDTO,Actor >().ReverseMap();
+            CreateMap<Actor, ResultActorWithFilmDTO>().ReverseMap();
+            CreateMap<Actor, CreateActorDTO>().ReverseMap();
+            CreateMap<Actor, UpdateActorDTO>().ReverseMap();
 
         }
     }

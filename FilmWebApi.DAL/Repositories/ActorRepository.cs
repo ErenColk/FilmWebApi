@@ -1,6 +1,7 @@
 ﻿using FilmWebApi.Core.Entities;
 using FilmWebApi.Core.IRepositories;
 using FilmWebApi.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,9 @@ namespace FilmWebApi.DAL.Repositories
 			_context = context;
 		}
 
-
-	}
+        public List<Actor> GetActorInclude()
+        {
+			return _context.Actors.Include(x => x.Films).ThenInclude(x=>x.Category).ToList();
+        }
+    }
 }
