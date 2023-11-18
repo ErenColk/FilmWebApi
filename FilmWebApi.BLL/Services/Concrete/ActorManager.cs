@@ -5,7 +5,9 @@ using FilmWebApi.Core.Entities;
 using FilmWebApi.Core.IRepositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +22,18 @@ namespace FilmWebApi.BLL.Services.Concrete
         {
             _baseRepository = baseRepository;
             _actorRepository = actorRepository;
+        }
+
+        public Actor TGetByActor(int id = 0, Expression<Func<Actor, object>> exp = null)
+        {
+            if (id <= 0 && exp == null)
+            {
+                return null;
+            }
+            else if (id <= 0)
+                return null;
+
+            return _actorRepository.GetByActor(id, exp);            
         }
 
         public List<ResultActorWithFilmDTO> TGetActorFilmAndCategory(List<ResultActorWithFilmDTO> resultActorWithFilm)

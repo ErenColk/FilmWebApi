@@ -39,7 +39,7 @@ namespace FilmWebApi.DAL.Repositories
 
 		public T GetById(int id)
 		{
-			return _context.Set<T>().Find(id);
+			return _context.Set<T>().FirstOrDefault(x=>x.Id == id);
 
 		}
 

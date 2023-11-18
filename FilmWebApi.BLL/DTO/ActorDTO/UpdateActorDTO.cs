@@ -14,6 +14,6 @@ namespace FilmWebApi.BLL.DTO.ActorDTO
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public int FilmId { get; set; }
-        public List<Film> Films { get; set; }
+
     }
 }
