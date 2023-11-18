@@ -1,5 +1,10 @@
+using FilmWebApi.BLL.Services.Abstract;
+using FilmWebApi.BLL.Services.Concrete;
+using FilmWebApi.Core.IRepositories;
 using FilmWebApi.DAL.Context;
+using FilmWebApi.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace FilmWebApi.UI
 {
@@ -17,7 +22,26 @@ namespace FilmWebApi.UI
 			builder.Services.AddSwaggerGen();
 
 			builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conStr")));
-			var app = builder.Build();
+
+
+            //AUTOMAPPER
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            //DEPENDENCY INJECTION
+            builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+			builder.Services.AddTransient<IActorRepository, ActorRepository>();
+			builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+			builder.Services.AddTransient<IFilmRepository, FilmRepository>();
+
+			builder.Services.AddTransient(typeof(IBaseService<>), typeof(BaseManager<>));
+			builder.Services.AddTransient<IActorService,ActorManager>();
+			builder.Services.AddTransient<ICategoryService,CategoryManager>();
+			builder.Services.AddTransient<IFilmService,FilmManager>();
+
+
+
+
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())

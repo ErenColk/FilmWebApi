@@ -12,15 +12,9 @@ namespace FilmWebApi.DAL.Context
 	{
         public AppDBContext(DbContextOptions<AppDBContext> options) :base(options) 
         {
-
-
             
         }
 
-        public AppDBContext()
-        {
-            
-        }
 
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Film> Films  { get; set; }

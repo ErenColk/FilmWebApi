@@ -10,13 +10,13 @@ namespace FilmWebApi.BLL.Services.Abstract
 {
 	public interface IBaseService<T> where T : BaseEntity
 	{
-		List<T> GetAll();
-		T GetById(int id);
-		T Add(T entity);
-		T Update(T entity);
-		bool Delete(T entity);
-		T GetByWhere(Expression<Func<T, bool>> exp);
-		List<T> GetWhere(Expression<Func<T, bool>> exp);
+		List<T> TGetAll();
+		T TGetById(int id);
+		bool TAdd(T entity);
+		bool TUpdate(T entity);
+		bool TDelete(int id);
+		T TGetByWhere(Expression<Func<T, bool>> exp);
+		List<T> TGetWhere(Expression<Func<T, bool>> exp);
 
 	}
 }

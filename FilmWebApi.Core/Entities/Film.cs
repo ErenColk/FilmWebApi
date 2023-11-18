@@ -9,9 +9,10 @@ namespace FilmWebApi.Core.Entities
 {
 	public class Film : BaseEntity
 	{
+
 		public int Year { get; set; }
-		public List<Actor> Actors { get; set; }
+		public List<Actor>? Actors { get; set; }
         public int CategoryID { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 	}
 }
