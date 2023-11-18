@@ -12,9 +12,9 @@ namespace FilmWebApi.Core.IRepositories
 	{
 		List<T> GetAll();
 		T GetById(int id);
-		T Add(T entity);
-		T Update(T entity);
-		bool Delete(T entity);
+		bool Add(T entity);
+		bool Update(T entity);
+		bool Delete(int id);
 		T GetByWhere(Expression<Func<T, bool>> exp);
 		bool Save();
 		List<T> GetWhere(Expression<Func<T, bool>> exp);

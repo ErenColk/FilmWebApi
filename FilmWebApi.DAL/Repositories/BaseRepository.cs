@@ -19,16 +19,16 @@ namespace FilmWebApi.DAL.Repositories
 			_context = context;
 		}
 
-        public T Add(T entity)
+        public bool Add(T entity)
 		{
 			_context.Set<T>().Add(entity);
-			Save();
-			return entity;
+			
+			return Save();
 		}
 
-		public bool Delete(T entity)
+		public bool Delete(int id)
 		{
-			_context.Set<T>().Remove(entity);
+			_context.Set<T>().Remove(GetById(id));
 			return Save();
 		}
 
@@ -59,11 +59,11 @@ namespace FilmWebApi.DAL.Repositories
 			return _context.SaveChanges() > 0;
 		}
 
-		public T Update(T entity)
+		public bool Update(T entity)
 		{
 			_context.Set<T>().Update(entity);
-			Save();
-			return entity;
+			
+			return Save();
 		}
 	}
 }
