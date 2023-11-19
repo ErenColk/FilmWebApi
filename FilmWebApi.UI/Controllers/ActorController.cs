@@ -92,8 +92,8 @@ namespace FilmWebApi.UI.Controllers
 
             if (actor != null)
             {
-                if (_actorService.TGetById(updateActorDTO.Id) != null && id != updateActorDTO.Id)
-                    return BadRequest("Bu id'li kullanıcı mevcut!");
+                if ( id != updateActorDTO.Id)
+                    return BadRequest("Id Degerini Degiştiremezsiniz");
 
                 if (actor.Films.FirstOrDefault(x => x.Id == updateActorDTO.FilmId) != null)
                     return BadRequest("Aktörün böyle bir filmi zaten mevcut!");

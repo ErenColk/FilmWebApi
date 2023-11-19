@@ -11,22 +11,29 @@ using System.Threading.Tasks;
 
 namespace FilmWebApi.DAL.Repositories
 {
-	public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
-	{
-		private readonly AppDBContext _context;
+    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
+    {
+        private readonly AppDBContext _context;
 
-		public CategoryRepository(AppDBContext context) : base(context)
-		{
-			_context = context;
-		}
-
-        public List<Category> GetCategoriesInclude(Expression<Func<Category,bool>> exp = null)
+        public CategoryRepository(AppDBContext context) : base(context)
         {
-            if (exp == null) 
-			{
-				return _context.Categories.Include(x => x.Films).ToList();				
-				
-			}
+            _context = context;
+        }
+
+        public List<Category> GetCategoriesInclude(Expression<Func<Category, bool>> exp = null)
+        {
+            if (exp == null)
+            {
+                var categories = _context.Categories.Include(x => x.Films).ToList();
+
+                foreach (var item in categories)
+                {
+                    item.Films = item.Films.Select(x => new Film { Name = x.Name, Year = x.Year}).ToList();
+                }
+
+                return categories;
+
+            }
             else
             {
                 return _context.Categories.Where(exp).Include(x => x.Films).ToList();
