@@ -13,6 +13,7 @@ namespace FilmWebApi.UI.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
+
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
         private readonly IFilmService _filmService;

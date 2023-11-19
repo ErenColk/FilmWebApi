@@ -12,6 +12,7 @@ namespace FilmWebApi.Core.Entities
         public Film()
         {
             Categorys = new List<Category>();
+            Actors = new List<Actor>();
         }
         public int Year { get; set; }
         public List<Actor>? Actors { get; set; }

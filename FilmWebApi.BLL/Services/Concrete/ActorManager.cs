@@ -53,9 +53,9 @@ namespace FilmWebApi.BLL.Services.Concrete
 
         }
 
-        public List<Actor> TGetActorInclude()
+        public List<Actor> TGetActorInclude(Expression<Func<Actor, bool>> exp = null)
         {
-            return _actorRepository.GetActorInclude();
+            return _actorRepository.GetActorInclude(exp);
         }
     }
 }
