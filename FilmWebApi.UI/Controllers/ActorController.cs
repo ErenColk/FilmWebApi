@@ -23,7 +23,7 @@ namespace FilmWebApi.UI.Controllers
         private readonly IMapper _mapper;
         private readonly IFilmService _filmService;
 
-        public ActorController(IActorService actorService, IMapper mapper,IFilmService filmService)
+        public ActorController(IActorService actorService, IMapper mapper, IFilmService filmService)
         {
             _actorService = actorService;
             _mapper = mapper;
@@ -32,7 +32,7 @@ namespace FilmWebApi.UI.Controllers
 
 
 
-        [HttpGet]
+        [HttpGet("GetListActor")]
         public IActionResult GetListActor()
         {
             var actor = _mapper.Map<List<ResultActorDTO>>(_actorService.TGetAll());
@@ -73,16 +73,19 @@ namespace FilmWebApi.UI.Controllers
 
             if (valid.IsValid)
             {
-                return Ok(createActorDTO);
+                actor.Films.Add(_filmService.TGetById(createActorDTO.FilmId));
+                _actorService.TAdd(actor);
+                return Ok(actor);
             }
             else
             {
                 return BadRequest(Message.ErrorMessages(valid));
             }
+
+
         }
 
-        [HttpPut]
-
+        [HttpPut("UpdateActor")]
         public IActionResult UpdateActor(int id, UpdateActorDTO updateActorDTO)
         {
             Actor actor = _actorService.TGetByActor(id);
@@ -92,7 +95,7 @@ namespace FilmWebApi.UI.Controllers
                 if (_actorService.TGetById(updateActorDTO.Id) != null && id != updateActorDTO.Id)
                     return BadRequest("Bu id'li kullanıcı mevcut!");
 
-                if(actor.Films.FirstOrDefault(x=> x.Id == updateActorDTO.FilmId)  != null)
+                if (actor.Films.FirstOrDefault(x => x.Id == updateActorDTO.FilmId) != null)
                     return BadRequest("Aktörün böyle bir filmi zaten mevcut!");
 
 
@@ -108,9 +111,62 @@ namespace FilmWebApi.UI.Controllers
                     return BadRequest(Message.ErrorMessages(valid));
                 }
             }
-      
-                return NotFound("Güncellenecek Aktör bulunamadı!");
-            
+
+            return NotFound("Güncellenecek Aktör bulunamadı!");
+        }
+
+
+
+
+        [HttpPut("MovieUpdateInActor")]
+        public IActionResult Update(int id, UpdateMovieInActorDTO movieUpdateDto)
+        {
+            Actor actor = _actorService.TGetByActor(id);
+            if (actor != null)
+            {
+                if (movieUpdateDto.NewFilmId > 0 && movieUpdateDto.OldFilmId > 0)
+                {
+                    actor.Films.Remove(_filmService.TGetById(movieUpdateDto.OldFilmId));
+                    actor.Films.Add(_filmService.TGetById(movieUpdateDto.NewFilmId));
+                    _actorService.TUpdate(actor);
+                    return Ok(actor);
+                }
+                else
+                    return BadRequest("Id ler 0'dan büyük olmalı...");
+
+            }
+            return NotFound("Id'ye ait aktör bulunamadı!");
+        }
+
+
+        [HttpDelete("DeleteActor")]
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0)
+                return BadRequest("Id '0' dan küçük olamaz");
+            else if (_actorService.TGetById(id) == null)
+                return NotFound("Bu id'ye ait aktör bulunamadı!");
+            else
+                _actorService.TDelete(id);
+            return Ok("Silme işlemi başarılı");
+        }
+
+        [HttpDelete("DeleteTheActorsMovie")]
+        public IActionResult DeleteMovie(int id, DeleteActorMovieDTO deleteMovie)
+        {
+
+            if (id <= 0)
+                return BadRequest("Id '0' dan küçük olamaz");
+            else if (_actorService.TGetById(id) == null)
+                return NotFound("Bu id'ye ait aktör bulunamadı!");
+            else
+            {
+                Actor actor = _actorService.TGetByActor(id);
+                actor.Films.Remove(_filmService.TGetById(deleteMovie.DeleteFilmId));
+                _actorService.TUpdate(actor);
+                return Ok("Silme işlemi başarılı");
+            }
+
         }
 
     }
