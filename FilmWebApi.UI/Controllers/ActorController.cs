@@ -37,7 +37,7 @@ namespace FilmWebApi.UI.Controllers
         {
             var actor = _mapper.Map<List<ResultActorDTO>>(_actorService.TGetAll());
 
-            if (actor == null)
+            if (actor.Count <= 0)
             {
                 return NotFound("İstediğiniz Liste Bulunamadı...");
             }
@@ -52,7 +52,7 @@ namespace FilmWebApi.UI.Controllers
 
             List<ResultActorWithFilmDTO> actor = _mapper.Map<List<ResultActorWithFilmDTO>>(_actorService.TGetActorInclude());
 
-            if (actor == null)
+            if (actor.Count <= 0)
             {
                 return NotFound("İstediğiniz Liste Bulunamadı...");
             }
