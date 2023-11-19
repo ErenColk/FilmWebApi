@@ -12,7 +12,7 @@ namespace FilmWebApi.BLL.Services.Abstract
     public interface IActorService : IBaseService<Actor>
     {
 
-        List<Actor> TGetActorInclude();
+        List<Actor> TGetActorInclude(Expression<Func<Actor, bool>> exp = null);
         List<ResultActorWithFilmDTO> TGetActorFilmAndCategory(List<ResultActorWithFilmDTO> resultActorWithFilm);
 
         Actor TGetByActor(int id = 0, Expression<Func<Actor, object>> exp = null);

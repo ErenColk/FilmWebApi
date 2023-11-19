@@ -10,7 +10,7 @@ namespace FilmWebApi.Core.IRepositories
 {
 	public interface IActorRepository : IBaseRepository<Actor>
 	{
-        List<Actor> GetActorInclude();
+        List<Actor> GetActorInclude(Expression<Func<Actor, bool>> exp = null);
 
         Actor GetByActor(int id = 0, Expression<Func<Actor, object>>  exp = null);
 

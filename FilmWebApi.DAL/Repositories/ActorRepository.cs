@@ -20,9 +20,13 @@ namespace FilmWebApi.DAL.Repositories
 			_context = context;
 		}
 
-        public List<Actor> GetActorInclude()
+        public List<Actor> GetActorInclude(Expression<Func<Actor, bool>> exp = null)
         {
+            if (exp == null)
 			return _context.Actors.Include(x => x.Films).ThenInclude(x=>x.Categorys).ToList();
+            else
+			return _context.Actors.Where(exp).Include(x => x.Films).ThenInclude(x=>x.Categorys).ToList();
+
         }
 
         public Actor GetByActor(int id = 0,Expression<Func<Actor,object>> exp = null)

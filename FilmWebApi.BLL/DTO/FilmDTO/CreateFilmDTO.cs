@@ -11,9 +11,6 @@ namespace FilmWebApi.BLL.DTO.FilmDTO
     {
         public string Name { get; set; }
         public int Year { get; set; }        
-        public string ActorId { get; set; }
-        public List<Actor>? Actors { get; set; }
-        public int CategoryId{ get; set; }
-        public Category Category { get; set; }
+
     }
 }
