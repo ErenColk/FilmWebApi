@@ -22,7 +22,7 @@ namespace FilmWebApi.DAL.Repositories
 
         public List<Actor> GetActorInclude()
         {
-			return _context.Actors.Include(x => x.Films).ThenInclude(x=>x.Category).ToList();
+			return _context.Actors.Include(x => x.Films).ThenInclude(x=>x.Categorys).ToList();
         }
 
         public Actor GetByActor(int id = 0,Expression<Func<Actor,object>> exp = null)

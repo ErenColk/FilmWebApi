@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace FilmWebApi.BLL.DTO.CategoryDTO
 {
-    public class ResultCategoryDTO
+    public class ResultCategoryWithFilmsDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<Film> Films { get; set; }
     }
 }

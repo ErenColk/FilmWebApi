@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,8 +43,8 @@ namespace FilmWebApi.BLL.Services.Concrete
             {            
                 foreach (var item in actor.Films)
                 {
-                      
-                    item.Category.Films.Clear();
+
+                    item.Categorys = item.Categorys.Select(x => new Category { Id = x.Id, Name = x.Name }).ToList();
                     item.Actors.Clear();
                 }
             }
